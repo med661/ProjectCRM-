@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import axios from "../config/axios"
 import { setUserInfo } from "../features/authentication/authenticationSlice"
-import Main from "../Main"
+import Main from "../components/Main/index"
 
 
 

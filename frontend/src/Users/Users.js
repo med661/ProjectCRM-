@@ -1,6 +1,6 @@
 import React ,{useEffect,useState}from 'react'
 import axiosIntance from '../config/axios'
-import Main from '../Main/index'
+import Main from '../components/Main/index'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
@@ -70,40 +70,89 @@ const Users = () => {
 
   return (
     <Main>
-<table className="table container" style={{paddingLeft:"15%"}}>
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    {users.map((item)=>{
+         
+
+<div class="container-xxl flex-grow-1 container-p-y">
+ <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Users List</h4>
+
+<div className="card">
+  <h5 className="card-header">Users</h5>
+  <div className="table-responsive text-nowrap">
+    <table className="table">
+      <thead className="table-light">
+        <tr>
+          <th>Name User</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Profil</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody className="table-border-bottom-0">
+      {users.map((item)=>{
 
 return(
-    <tr>
-    <th scope="row">{item.name}</th>
-    <td>{item.role}</td>
-    <td>{item.mobile}</td>
-    <td>{item.email}</td>
-    <td><Link  to={`updateUser/${item._id}`} className="nav-link">change</Link> 
-    <button onClick={()=>deleteUser(item._id)} >delete user</button>
+        <tr>
+          <td>
+            <i className="fab fa-angular fa-lg text-danger me-3" />{" "}
+            <strong>{item.name}</strong>
+          </td>
+          <td>{item.email}</td>
+          <td>{item.mobile}</td>
+          
+          <td>
+            <ul className="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+              <li
+                data-bs-toggle="tooltip"
+                data-popup="tooltip-custom"
+                data-bs-placement="top"
+                className="avatar avatar-xs pull-up"
+                title="Lilian Fuller"
+              >
+                <img
+                  src="../assets/img/avatars/6.png"
+                  alt="Avatar"
+                  className="rounded-circle"
+                />
+              </li>
+              
+             
+            </ul>
+          </td>
+          <td>
+              <span className="badge bg-label-success me-1">{item.role}</span>
+            </td>
+         
+          <td>
+            <div className="dropdown">
+              <button
+                type="button"
+                className="btn p-0 dropdown-toggle hide-arrow"
+                data-bs-toggle="dropdown"
+              >
+                <i className="bx bx-dots-vertical-rounded" />
+              </button>
+              <div className="dropdown-menu">
+                <Link className="dropdown-item"   to={`updateUser/${item._id}`}>
+                  <i className="bx bx-edit-alt me-1" /> Edit
+                </Link>
+                <button className="dropdown-item"  onClick={()=>deleteUser(item._id)}>
+                  <i className="bx bx-trash me-1" /> Delete
+                </button>
+               
+              </div>
+            </div>
+          </td>
+        </tr>
+       )
 
-</td>
-
-  </tr>
-)
-
-    })}
-   
-  
- 
-  </tbody>
-</table>
-
-
+      })}
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
     </Main>
   )
 }

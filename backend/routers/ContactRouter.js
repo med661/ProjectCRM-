@@ -3,8 +3,9 @@ const ContactController = require('../controllers/ContactController')
 const auth = require('../middleware/auth')
 const authUser = require('../middleware/authUser')
 const authAdmin = require('../middleware/authadmin')
+const upload = require("../utils/multer");
 
-router.post('/addContact',auth,authUser,ContactController.AddContact)
+router.post('/addContact',upload.single("image"),auth,authUser,ContactController.AddContact)
 router.get('/contactListe',auth,authUser,ContactController.getallcontact)
 
 router.delete('/delete/:id', auth, authUser, ContactController.deleteContact)

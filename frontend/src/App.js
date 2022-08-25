@@ -1,27 +1,28 @@
 import React ,{useState} from 'react'
 
 import './App.css';
-import Navbar from './Layouts/Navbar';
-import Login from './Login/Login';
+
+import Login from './components/Login/Login';
 import PublicRoute from './HOC/PublicRoute';
 import PrivateRoute from './HOC/PrivateRoute';
 import { selectisauth, selectuser } from './features/authentication/authenticationSlice';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import Sidebar from './Layouts/Sidebar';
-import Register from './Register/Register';
+import Sidebar from './components/Layouts/Sidebar';
+import Register from './components/Register/Register';
 import Users from './Users/Users';
 import Profile from './profile/Profile';
-import Landing from './Landingpage/Landingpage';
+import Landing from './components/Landingpage/Landingpage';
 import AddContact from './addContact/AddContact';
 import ListeContact from './ListeContact/ListeContact';
 import AddEvents from './AddEvents/AddEvents';
-import Profil from './Profil/Profil';
+import Profil from './components/Profil/Profil';
 import Events from './events/Events';
-import updateUser from './updateuser/updateUser';
+import updateUser from './components/updateuser/updateUser';
 import Updatecontact from './updatecontact/Updatecontact.js';
 import UpdateEvent from './updateEvent/UpdateEvent';
+
 
 function App() {
 
@@ -33,10 +34,10 @@ function App() {
   return (
    <div>
       <Router  forceRefresh={true} >
-        <Navbar />
+   
         
         <Switch>
-          <div style={{ marginTop: '65px' }} >
+          
           <Route exact path="/" component={Landing}/>
 
 
@@ -70,7 +71,7 @@ function App() {
 
 
 
-          </div>
+          
         </Switch>
       </Router>
 

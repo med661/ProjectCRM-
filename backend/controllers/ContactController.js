@@ -6,11 +6,13 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Contact=require('../models/Contact')
 const ValidateUser =require('../validation/Users.validation')
+const cloudinary = require("../utils/cloudinary");
+
    
 const ContactController={
 AddContact:async (req,res)=>{
     const {errors,isValid}=ValidateUser(req.body)
-    const { name, email, mobile ,adress} = req.body;
+    const { name, email,company, mobile ,adress, status} = req.body;
 try {
     if (!isValid) {
         res.status(404).json(vm.ApiResponse(false,404,errors))
@@ -24,15 +26,47 @@ try {
                      }
             else{
 
+
+              if (!req.file || req.file.path == undefined || req.file.path == null) {
+                var newUser = {
+                  name:name,
+                  email:email,
+                  company:company,
+                  mobile:mobile,
+                  adress:adress,
+                  createdBy:req.user.id,
+                  status:status
+                };
+              }else{
+
+                const result = await cloudinary.uploader.upload(req.file.path);
+
+                var newUser = new Contact({
+                  name:name,
+                  email:email,
+                  company:company,
+                  mobile:mobile,
+                  adress:adress,
+                  createdBy:req.user.id,
+                  image: result.secure_url,
+                  cloudinary_id: result.public_id,
+                  status:status
+
+
+                })
+
+              }
+      
            
 
-              const newUser = new Contact({
+          /*   const newUser = new Contact({
                 name:name,
                 email:email,
+                company:company,
                 mobile:mobile,
                 adress:adress,
                 createdBy:req.user.id
-              })
+              })*/
             newUser
               .save()
               .then((insc) => {
@@ -40,7 +74,7 @@ try {
               })
               .catch((err) => {
                 return res.status(500).json(vm.ApiResponse(false, 500, err));
-              });         
+              });       
             }
         })
        

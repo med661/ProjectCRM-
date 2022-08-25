@@ -2,14 +2,29 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     image:{
         type: String,
-        default:'https://res.cloudinary.com/dmjrzsis4/image/upload/v1660695453/lqvs0biveo3f4m1u39z7.png'
+        default:'https://res.cloudinary.com/individuel/image/upload/v1661368042/profile-g7098385ae_640_yavuwb.png'
 
 
     },
-    name: {
+    firstname: {
         type: String,
-        required: [true, "Please enter your name!"],
+        required: [true, "Please enter your firstname!"],
         trim: true
+    },
+    lastname: {
+        type: String,
+       // required: [true, "Please enter your lastname!"],
+        trim: true
+    },
+   
+    state: {
+        type: String,
+        trim: true,
+        
+    },
+    zipcode:{
+        type: Number,
+        trim: true,
     },
     email: {
         type: String,
@@ -23,7 +38,11 @@ const userSchema = new mongoose.Schema({
     },
     adress: {
         type: String,
-        required: [true, "Please enter your adress!"]
+        
+    },
+    organization:{
+        type: String,
+       // required: [false, "Please enter your organization!"]
     },
     role: {
         type: String,
